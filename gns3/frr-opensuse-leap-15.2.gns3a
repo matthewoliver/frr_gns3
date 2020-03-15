@@ -1,0 +1,42 @@
+{
+    "name": "FRR",
+    "category": "router",
+    "description": "FRRouting (FRR) is an IP routing protocol suite for Linux and Unix platforms which includes protocol daemons for BGP, IS-IS, LDP, OSPF, PIM, and RIP.\n\nFRR’s seamless integration with the native Linux/Unix IP networking stacks makes it applicable to a wide variety of use cases including connecting hosts/VMs/containers to the network, advertising network services, LAN switching and routing, Internet access routers, and Internet peering.\n\nThis is an unofficial VM or FRR.",
+    "vendor_name": "FRRouting Project",
+    "vendor_url": "https://frrouting.org",
+    "product_name": "FRR",
+    "registry_version": 3,
+    "status": "stable",
+    "maintainer": "Matthew Oliver",
+    "maintainer_email": "matt@oliver.net.au",
+    "usage": "Credentials: admin / admin for the frr console\nIf you want access to the system root / root with give you a bash shell.",
+    "port_name_format": "eth{port0}",
+    "qemu": {
+        "adapter_type": "virtio-net-pci",
+        "adapters": 8,
+        "ram": 512,
+        "hda_disk_interface": "virtio",
+        "arch": "x86_64",
+        "console_type": "telnet",
+        "kvm": "require"
+    },
+    "images": [
+        {
+            "filename": "frr-openSUSE-Leap-JeOS.x86_64-15.2.qcow2",
+            "version": "frr OpenSuse Jeos Leap 15.2",
+            "md5sum": "e68a491c62e21e68d717a8ec131e1924",
+            "filesize": 352583680,
+            "download_url": "",
+            "direct_download_url": "",
+            "compression": "bzip2"
+        }
+    ],
+    "versions": [
+        {
+            "name": "frr OpenSuse Jeos Leap 15.2",
+            "images": {
+                "hda_disk_image": "frr-openSUSE-Leap-JeOS.x86_64-15.2.qcow2"
+            }
+        }
+    ]
+}
