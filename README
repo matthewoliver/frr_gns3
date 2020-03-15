@@ -1,0 +1,23 @@
+Frr_gns3 is a smaller linux image for GNS3[0] to provide a FRR[1] router using the FRR project.
+
+It's built using Kiwi, a tool to build system images. All the needed files are included in this repo.
+It uses the OpenSuse Leap 15.2 JEOS kiwi configuration, obviously slightly modified, to keep the image small.
+
+When built it should be about 350MB. If did have it down to 250MB but in order to add the MPLS drivers, which
+weren't included in the jeos cut down kernel, meant I needed to install the full blown suse kernel.
+
+Building the image
+========================
+The repo has been laid out in 2 areas. Kiki and GNS3::
+
+
+
+Installing the GNS3 image as an appliance
+============================================
+
+Basically follow: https://gns3.com/news/article/installation-of-the-new-gns3a-fi
+
+
+
+[0] - https://gns3.com
+[1] - https://frrouting.org/
