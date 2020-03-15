@@ -16,6 +16,10 @@ The image has 2 accounts set up:
     username: root
     password: root
 
+NOTE: The gns3a is a hacked version of the existing FRR appliance, so real kudos goes to adosztal[2]. And the kiwi description is
+      a hack of the one created by the OpenSuse Project for their Leap JEOS[3].
+
+
 Building the image
 ========================
 The repo has been laid out in 2 areas. Kiki and GNS3::
@@ -66,3 +70,5 @@ Basically follow: https://gns3.com/news/article/installation-of-the-new-gns3a-fi
 
 [0] - https://gns3.com
 [1] - https://frrouting.org/
+[2] - Original frr gns3a: https://github.com/GNS3/gns3-registry/blob/master/appliances/frr.gns3a
+[3] - Original kiwi template: https://build.opensuse.org/package/view_file/openSUSE:Leap:15.2:Images/kiwi-templates-JeOS/JeOS.kiwi
