@@ -18,6 +18,12 @@ baseService frr on
 baseInsertService mps_label_setup
 baseService mps_label_setup on
 
+baseInsertService qemu-guest-agent
+baseService qemu-guest-agent on
+
+baseInsertService dodgy_hostname_hack
+baseService dodgy_hostname_hack on
+
 #======================================
 # Exit successfully
 #--------------------------------------

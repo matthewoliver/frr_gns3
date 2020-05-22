@@ -54,6 +54,39 @@ echo "enabling all frr daemons"
 sed -i 's/=no$/=yes/g' /etc/frr/daemons
 chgrp frrvty /etc/frr/
 
+echo "enable qemu-guest-agent"
+systemctl enable qemu-guest-agent
+
+echo "Setting up dodgy hostname setter"
+tee /etc/systemd/system/dodgy_hostname_hack.service << EOF
+# /etc/systemd/system/dodgy_hostname_hack.service
+#
+
+[Unit]
+Description=Set hostname at boot from a virt dev name
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c "/etc/frr/dodgy_hostname_hack.sh"
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+tee /etc/frr/dodgy_hostname_hack.sh << EOF
+# Set hostname from a null device that happens to container the name
+#!/bin/bash
+PREFIX="frr.router.hostname."
+if [ -d /dev/virtio-ports/ ]; then
+  cd /dev/virtio-ports/
+  if [ \$(ls \$PREFIX* |wc -l) -gt 0 ];then
+    hostname=\$(ls \$PREFIX* |sed "s/\$PREFIX//")
+    hostnamectl set-hostname \$hostname
+  fi
+fi
+EOF
+chmod +x /etc/frr/dodgy_hostname_hack.sh
+systemctl enable dodgy_hostname_hack
 
 echo "enable frr"
 systemctl enable frr

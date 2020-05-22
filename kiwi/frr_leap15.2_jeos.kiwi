@@ -317,6 +317,7 @@
         <package name="live-add-yast-repos"/>
         <package name="frr"/>
         <package name="libyang-extentions"/>
+        <package name="qemu-guest-agent"/>
     </packages>
 
     <!-- Not needed in OpenStack as it uses XFS and cloud-init -->

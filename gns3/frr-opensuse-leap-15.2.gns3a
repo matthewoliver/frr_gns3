@@ -9,7 +9,7 @@
     "status": "stable",
     "maintainer": "Matthew Oliver",
     "maintainer_email": "matt@oliver.net.au",
-    "usage": "Credentials: admin / admin for the frr console\nIf you want access to the system root / root with give you a bash shell.",
+    "usage": "Credentials: admin / admin for the frr console\nIf you want access to the system root / root with give you a bash shell.\n\nNOTE: Hostnames of router will update on router start (so stop/start for it to take effect)",
     "port_name_format": "eth{port0}",
     "qemu": {
         "adapter_type": "virtio-net-pci",
@@ -18,7 +18,8 @@
         "hda_disk_interface": "virtio",
         "arch": "x86_64",
         "console_type": "telnet",
-        "kvm": "require"
+        "kvm": "require",
+        "options": "-chardev socket,path=/tmp/qga.sock,server,nowait,id=qga0 -device virtio-serial -device virtserialport,chardev=qga0,name=org.qemu.guest_agent.0 -chardev null,id=hn0 -device virtio-serial -device virtserialport,chardev=hn0,name=frr.router.hostname.%vm-name%"
     },
     "images": [
         {
