@@ -11,7 +11,6 @@ echo "Configure image: [$kiwi_iname]..."
 #======================================
 # Call configuration code/functions
 #--------------------------------------
-suseActivateDefaultServices
 baseInsertService frr
 baseService frr on
 

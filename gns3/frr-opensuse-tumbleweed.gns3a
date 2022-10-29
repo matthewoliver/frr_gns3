@@ -1,0 +1,58 @@
+{
+    "name": "FRR",
+    "category": "router",
+    "description": "FRRouting (FRR) is an IP routing protocol suite for Linux and Unix platforms which includes protocol daemons for BGP, IS-IS, LDP, OSPF, PIM, and RIP.\n\nFRR’s seamless integration with the native Linux/Unix IP networking stacks makes it applicable to a wide variety of use cases including connecting hosts/VMs/containers to the network, advertising network services, LAN switching and routing, Internet access routers, and Internet peering.\n\nThis is an unofficial VM or FRR.",
+    "vendor_name": "FRRouting Project",
+    "vendor_url": "https://frrouting.org",
+    "product_name": "FRR",
+    "registry_version": 3,
+    "status": "stable",
+    "maintainer": "Matthew Oliver",
+    "maintainer_email": "matt@oliver.net.au",
+    "usage": "Credentials: admin / admin for the frr console\nIf you want access to the system root / root with give you a bash shell.\n\nNOTE: Hostnames of router will update on router start (so stop/start for it to take effect)",
+    "port_name_format": "eth{port0}",
+    "qemu": {
+        "adapter_type": "virtio-net-pci",
+        "adapters": 8,
+        "ram": 512,
+        "hda_disk_interface": "virtio",
+        "arch": "x86_64",
+        "console_type": "telnet",
+        "kvm": "require",
+        "options": "-chardev socket,path=/tmp/qga.sock,server,nowait,id=qga0 -device virtio-serial -device virtserialport,chardev=qga0,name=org.qemu.guest_agent.0 -chardev null,id=hn0 -device virtio-serial -device virtserialport,chardev=hn0,name=frr.router.hostname.%vm-name%"
+    },
+    "images": [
+        {
+            "filename": "openSUSE-Tumbleweed-JeOS-Frr-Appliance-MPLS.x86_64-1.0.qcow2",
+            "version": "v1.1 - Base with MPLS",
+            "md5sum": "91a92121a3da914730ba99c3b3a60a04",
+            "filesize": 234553344,
+            "download_url": "https://download.opensuse.org/repositories/home:/mattoliverau/images/",
+            "direct_download_url": "https://download.opensuse.org/repositories/home:/mattoliverau/images/frr-openSUSE-Leap-JeOS.x86_64-kvm-and-xen.qcow2",
+            "compression": "gzip"
+        },
+        {
+            "filename": "openSUSE-Tumbleweed-JeOS-Frr-Appliance-Full-Kernel.x86_64-1.0.qcow2",
+            "version": "v1.0 - Full Kernel",
+            "md5sum": "f22300a2758f3fc24badbf32e34a2adb",
+            "filesize": 407371776,
+            "download_url": "https://download.opensuse.org/repositories/home:/mattoliverau/images/",
+            "direct_download_url": "https://download.opensuse.org/repositories/home:/mattoliverau/images/frr-openSUSE-Leap-JeOS.x86_64-kvm-and-xen.qcow2",
+            "compression": "gzip"
+        }
+    ],
+    "versions": [
+        {
+            "name": "v1.1 Base with MPLS",
+            "images": {
+                "hda_disk_image": "openSUSE-Tumbleweed-JeOS-Frr-Appliance-MPLS.x86_64-1.0.qcow2"
+            }
+        },
+        {
+            "name": "v1.0 - Full Kernel",
+            "images": {
+                "hda_disk_image": "openSUSE-Tumbleweed-JeOS-Frr-Appliance-Full-Kernel.x86_64-1.0.qcow2"
+            }
+        }
+    ]
+}

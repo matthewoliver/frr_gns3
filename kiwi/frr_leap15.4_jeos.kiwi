@@ -2,22 +2,22 @@
 
 <!-- OBS-Profiles: @BUILD_FLAVOR@ -->
 
-<image schemaversion="6.1" name="frr-openSUSE-Leap-JeOS" displayname="openSUSE Leap 15.2 frrouting">
+<image schemaversion="6.1" name="openSUSE-Leap-15.4-JeOS" displayname="openSUSE Leap 15.4">
     <description type="system">
 		<author>Matthew Oliver - Really a hacked version from OpenSuse Project</author>
         <contact>matt@oliver.net.au</contact>
-        <specification>FRR openSUSE Leap 15.2 JeOS</specification>
+        <specification>FRR openSUSE Leap 15.4 JeOS</specification>
     </description>
     <profiles>
-        <profile name="kvm-and-xen" description="JeOS for KVM and HVM Xen" arch="x86_64"/>
-        <profile name="XEN" description="JeOS for PV Xen" arch="x86_64"/>
+        <profile name="kvm-and-xen" description="JeOS for KVM and Xen" arch="x86_64"/>
+        <profile name="kvm" description="JeOS for KVM" arch="aarch64"/>
         <profile name="VMware" description="JeOS for VMware" arch="x86_64"/>
         <profile name="MS-HyperV" description="JeOS for Hyper-V" arch="x86_64"/>
         <profile name="OpenStack-Cloud" description="JeOS for OpenStack Cloud" arch="x86_64"/>
         <profile name="RaspberryPi" description="JeOS for the Raspberry Pi" arch="aarch64"/>
     </profiles>
     <preferences profiles="kvm-and-xen">
-        <version>15.2</version>
+        <version>15.4</version>
         <packagemanager>zypper</packagemanager>
         <bootsplash-theme>openSUSE</bootsplash-theme>
         <bootloader-theme>openSUSE</bootloader-theme>
@@ -35,7 +35,7 @@
             bootloader="grub2"
             firmware="uefi"
             efipartsize="33"
-            kernelcmdline="plymouth.enable=0 console=ttyS0,115200 console=tty0 quiet"
+            kernelcmdline="rw systemd.show_status=1 console=ttyS0,115200 console=tty0 quiet"
             bootpartition="false"
             bootkernel="custom"
             devicepersistency="by-uuid"
@@ -57,8 +57,8 @@
         </type>
     </preferences>
 
-    <preferences profiles="XEN">
-        <version>15.2</version>
+    <preferences profiles="kvm">
+        <version>15.4</version>
         <packagemanager>zypper</packagemanager>
         <bootsplash-theme>openSUSE</bootsplash-theme>
         <bootloader-theme>openSUSE</bootloader-theme>
@@ -72,12 +72,11 @@
         <type
             image="vmx"
             filesystem="btrfs"
-            bootprofile="xen"
-            firmware="uefi"
-            efipartsize="33"
             format="qcow2"
             bootloader="grub2"
-            kernelcmdline="plymouth.enable=0 console=tty0 quiet"
+            firmware="uefi"
+            efipartsize="33"
+            kernelcmdline="rw systemd.show_status=1 console=ttyS0,115200 console=tty0 quiet"
             bootpartition="false"
             bootkernel="custom"
             devicepersistency="by-uuid"
@@ -90,22 +89,16 @@
                 <volume name="tmp"/>
                 <volume name="opt"/>
                 <volume name="srv"/>
-                <volume name="boot/grub2/i386-pc"/>
-                <volume name="boot/grub2/x86_64-efi" mountpoint="boot/grub2/x86_64-efi"/>
+                <volume name="boot/grub2/arm64-efi" mountpoint="boot/grub2/arm64-efi"/>
                 <volume name="usr/local"/>
                 <volume name="var" copy_on_write="false"/>
             </systemdisk>
             <size unit="G">24</size>
-            <machine domain="domU">
-                <!-- creation of hvmloader Xen config file is not supported -->
-                <!-- thus just provide mandatory setup indicating there is a disk -->
-                <vmdisk id="0"/>
-            </machine>
         </type>
     </preferences>
 
     <preferences profiles="VMware">
-        <version>15.2</version>
+        <version>15.4</version>
         <packagemanager>zypper</packagemanager>
         <bootsplash-theme>openSUSE</bootsplash-theme>
         <bootloader-theme>openSUSE</bootloader-theme>
@@ -123,7 +116,7 @@
             bootloader="grub2"
             firmware="uefi"
             efipartsize="33"
-            kernelcmdline="plymouth.enable=0 console=ttyS0,115200 console=tty0 quiet"
+            kernelcmdline="rw systemd.show_status=1 console=ttyS0,115200 console=tty0 quiet"
             bootpartition="false"
             bootkernel="custom"
             devicepersistency="by-uuid"
@@ -142,12 +135,12 @@
                 <volume name="var" copy_on_write="false"/>
             </systemdisk>
             <size unit="G">24</size>
-            <machine memory="1024" HWversion="10" guestOS="openSUSEs-64"/>
+            <machine memory="1024" HWversion="10" guestOS="opensuse-64"/>
         </type>
     </preferences>
 
     <preferences profiles="OpenStack-Cloud">
-        <version>15.2</version>
+        <version>15.4</version>
         <packagemanager>zypper</packagemanager>
         <bootsplash-theme>openSUSE</bootsplash-theme>
         <bootloader-theme>openSUSE</bootloader-theme>
@@ -167,7 +160,7 @@
             bootloader="grub2"
             firmware="uefi"
             efipartsize="33"
-            kernelcmdline="plymouth.enable=0 console=ttyS0,115200 console=tty0 net.ifnames=0 quiet"
+            kernelcmdline="rw systemd.show_status=1 console=ttyS0,115200 console=tty0 net.ifnames=0 quiet"
             bootpartition="false"
             bootkernel="custom"
             devicepersistency="by-uuid"
@@ -175,7 +168,7 @@
     </preferences>
 
     <preferences profiles="MS-HyperV">
-        <version>15.2</version>
+        <version>15.4</version>
         <packagemanager>zypper</packagemanager>
         <bootsplash-theme>openSUSE</bootsplash-theme>
         <bootloader-theme>openSUSE</bootloader-theme>
@@ -194,7 +187,7 @@
             bootloader="grub2"
             firmware="uefi"
             efipartsize="33"
-            kernelcmdline="plymouth.enable=0 rootdelay=300 console=ttyS0,115200 console=tty0 earlyprintk=ttyS0,115200 quiet"
+            kernelcmdline="rw systemd.show_status=1 rootdelay=300 console=ttyS0,115200 console=tty0 earlyprintk=ttyS0,115200 quiet"
             bootpartition="false"
             bootkernel="custom"
             devicepersistency="by-uuid"
@@ -217,7 +210,7 @@
     </preferences>
 
     <preferences profiles="RaspberryPi">
-        <version>15.2</version>
+        <version>15.4</version>
         <packagemanager>zypper</packagemanager>
         <bootsplash-theme>openSUSE</bootsplash-theme>
         <bootloader-theme>openSUSE</bootloader-theme>
@@ -235,12 +228,12 @@
             fsmountoptions="noatime,compress=lzo"
             bootloader="grub2"
             firmware="efi"
-            kernelcmdline="plymouth.enable=0 swiotlb=512 cma=64M console=tty quiet"
+            kernelcmdline="rw systemd.show_status=1 console=ttyS0,115200 console=tty quiet"
             bootpartition="false"
             devicepersistency="by-uuid"
             btrfs_quota_groups="true"
             btrfs_root_is_snapshot="true"
-            efipartsize="16"
+            efipartsize="64"
             editbootinstall="editbootinstall_rpi.sh"
         >
             <systemdisk>
@@ -261,28 +254,28 @@
         </type>
     </preferences>
 
+    <!-- <repository type="rpm-md" >
+        <source path='obsrepositories:/'/>
+      </repository> -->
     <repository type="rpm-md" >
-		<source path='http://download.opensuse.org/distribution/leap/15.2/repo/oss/'/>
+		  <source path='http://download.opensuse.org/distribution/leap/15.4/repo/non-oss/'/>
     </repository>
     <repository type="rpm-md" >
-		<source path='http://download.opensuse.org/distribution/leap/15.2/repo/non-oss/'/>
+		  <source path='http://download.opensuse.org/update/leap/15.4/non-oss'/>
     </repository>
     <repository type="rpm-md" >
-		<source path='http://download.opensuse.org/update/leap/15.2/oss'/>
+		  <source path='http://download.opensuse.org/update/leap/15.4/oss'/>
     </repository>
     <repository type="rpm-md" >
-        <source path='https://download.opensuse.org/repositories/network/openSUSE_Leap_15.2/'/>
+      <source path='http://download.opensuse.org/distribution/leap/15.4/repo/oss/'/>
     </repository>
-    <drivers profiles="kvm-and-xen,XEN">
-        <file name="drivers/xen/*" arch="x86_64"/>
-        <file name="drivers/block/xen-blkfront.ko" arch="x86_64"/>
-        <file name="drivers/net/xen-netfront.ko" arch="x86_64"/>
-        <file name="drivers/scsi/xen-scsifront.ko" arch="x86_64"/>
-        <file name="drivers/input/misc/xen-kbdfront.ko" arch="x86_64"/>
-        <file name="drivers/pci/xen-pcifront.ko" arch="x86_64"/>
-    </drivers>
+    <repository type="rpm-md" >
+      <source path='https://download.opensuse.org/repositories/network/15.4'/>
+    </repository>
     <packages type="image">
-        <package name="patterns-base-minimal_base"/>
+        <package name="patterns-base-base"/>
+        <package name="patterns-base-apparmor"/> <!-- Installs tools and profiles -->
+        <package name="audit"/> <!-- On SLE it's only recommended by the apparmor pattern -->
         <package name="aaa_base-extras"/> <!-- wouldn't be SUSE without that ;-) -->
         <package name="acl"/>
         <package name="chrony"/>
@@ -295,7 +288,6 @@
         <package name="iputils"/>
         <package name="issue-generator"/> <!-- bsc#1084879 -->
         <package name="vim"/>
-        <package name="shim" arch="x86_64"/>
         <package name="grub2"/>
         <package name="grub2-x86_64-efi" arch="x86_64"/>
         <package name="grub2-arm64-efi" arch="aarch64"/>
@@ -306,7 +298,7 @@
         <package name="openSUSE-build-key"/>
         <package name="systemd"/>
         <package name="systemd-sysvinit"/>
-        <package name="systemd-logger"/> <!-- To have a persistent journal -->
+        <package name="rsyslog"/> <!-- Tumbleweed uses systemd-logger instead -->
         <package name="timezone"/>
         <package name="wicked"/>
         <package name="iproute2"/> 
@@ -314,14 +306,21 @@
         <package name="rsync"/>
         <package name="salt-minion"/>
         <package name="dosfstools"/> <!-- For fscking /boot/efi -->
+        <package name="lsof"/> <!-- For zypper ps (bsc#1167553) -->
+        <package name="jeos-licenses"/>
         <package name="live-add-yast-repos"/>
+        <package name="zypper-needs-restarting"/> <!-- Some deployment script use this (bsc#1173548) -->
         <package name="frr"/>
         <package name="libyang-extentions"/>
-        <package name="qemu-guest-agent"/>
+    </packages>
+
+    <!-- Shim for secure boot everywhere except for RPi -->
+    <packages type="image" profiles="kvm-and-xen,kvm,VMware,MS-HyperV,OpenStack-Cloud">
+        <package name="shim" arch="aarch64,x86_64"/>
     </packages>
 
     <!-- Not needed in OpenStack as it uses XFS and cloud-init -->
-    <packages type="image" profiles="kvm-and-xen,XEN,VMware,MS-HyperV,RaspberryPi">
+    <packages type="image" profiles="kvm-and-xen,kvm,VMware,MS-HyperV,RaspberryPi">
         <!-- Only for btrfs -->
         <package name="btrfsprogs"/>
         <package name="btrfsmaintenance"/>
@@ -337,34 +336,35 @@
         <package name="firewalld"/>
     </packages>
 
-    <packages type="image" profiles="kvm-and-xen,XEN">
+    <packages type="image" profiles="kvm-and-xen">
         <!-- XEN specific packages -->
         <package name="xen-tools-domU" arch="x86_64"/>
-        <package name="grub2-x86_64-xen" arch="x86_64"/>
         <package name="xen-libs" arch="x86_64"/>
-		<!-- <package name="kernel-default-base"/> -->
+    </packages>
+    <packages type="image" profiles="kvm-and-xen,kvm">
+		    <!-- <package name="kernel-default-base"/> -->
         <package name="kernel-default"/>
-		<!-- <package name="openSUSE-release-appliance-kvm"/> -->
+    </packages>
+    <packages type="image" profiles="kvm-and-xen,kvm,OpenStack-Cloud">
+        <package name="qemu-guest-agent"/>
     </packages>
     <packages type="image" profiles="VMware">
         <package name="open-vm-tools" arch="x86_64"/>
         <package name="kernel-default-base"/>
-        <package name="openSUSE-release-appliance-vmware"/>
     </packages>
     <packages type="image" profiles="OpenStack-Cloud">
         <package name="cloud-init" />
         <package name="cloud-init-config-suse" />
         <package name="xfsprogs" />
         <package name="kernel-default-base"/>
-        <package name="openSUSE-release-appliance-openstack"/>
     </packages>
     <packages type="image" profiles="MS-HyperV">
         <package name="hyper-v" arch="x86_64"/>
         <package name="kernel-default-base"/>
         <!--<package name="python-azure-agent"/> disabled until bsc#1061584 is fixed -->
-        <package name="openSUSE-release-appliance-hyperv"/>
     </packages>
     <packages type="image" profiles="RaspberryPi">
+        <package name="raspberrypi-eeprom" arch="aarch64"/>
         <package name="raspberrypi-firmware" arch="aarch64"/>
         <package name="raspberrypi-firmware-config" arch="aarch64"/>
         <package name="raspberrypi-firmware-dt" arch="aarch64"/>
@@ -377,11 +377,26 @@
     </packages>
 
     <packages type="bootstrap">
-        <package name="udev"/>
         <package name="filesystem"/>
         <package name="glibc-locale-base"/>
         <package name="ca-certificates-mozilla"/>
         <package name="openSUSE-release"/>
+    </packages>
+
+    <packages type="bootstrap" profiles="kvm,kvm-and-xen">
+        <package name="openSUSE-release-appliance-kvm"/>
+    </packages>
+    <packages type="bootstrap" profiles="OpenStack-Cloud">
+        <package name="openSUSE-release-appliance-openstack"/>
+    </packages>
+    <packages type="bootstrap" profiles="MS-HyperV">
+        <package name="openSUSE-release-appliance-hyperv"/>
+    </packages>
+    <packages type="bootstrap" profiles="VMware">
+        <package name="openSUSE-release-appliance-vmware"/>
+    </packages>
+    <packages type="bootstrap" profiles="RaspberryPi">
+        <package name="openSUSE-release-appliance-custom"/>
     </packages>
 	<users group="frrvty" id="499">
 		<user home="/home/admin" id="1000" name="admin" password="admin"
@@ -392,3 +407,4 @@
         pwdformat="plain" realname="root" shell="/bin/bash"/>
     </users>
 </image>
+
