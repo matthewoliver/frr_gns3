@@ -2,11 +2,11 @@
 
 <!-- OBS-Profiles: @BUILD_FLAVOR@ -->
 
-<image schemaversion="6.1" name="openSUSE-Leap-15.4-JeOS" displayname="openSUSE Leap 15.4">
+<image schemaversion="6.1" name="openSUSE-Leap-15.6-JeOS" displayname="openSUSE Leap 15.6">
     <description type="system">
 		<author>Matthew Oliver - Really a hacked version from OpenSuse Project</author>
         <contact>matt@oliver.net.au</contact>
-        <specification>FRR openSUSE Leap 15.4 JeOS</specification>
+        <specification>FRR openSUSE Leap 15.6 JeOS</specification>
     </description>
     <profiles>
         <profile name="kvm-and-xen" description="JeOS for KVM and Xen" arch="x86_64"/>
@@ -17,7 +17,7 @@
         <profile name="RaspberryPi" description="JeOS for the Raspberry Pi" arch="aarch64"/>
     </profiles>
     <preferences profiles="kvm-and-xen">
-        <version>15.4</version>
+        <version>15.6.3</version>
         <packagemanager>zypper</packagemanager>
         <bootsplash-theme>openSUSE</bootsplash-theme>
         <bootloader-theme>openSUSE</bootloader-theme>
@@ -58,7 +58,7 @@
     </preferences>
 
     <preferences profiles="kvm">
-        <version>15.4</version>
+        <version>15.6.3</version>
         <packagemanager>zypper</packagemanager>
         <bootsplash-theme>openSUSE</bootsplash-theme>
         <bootloader-theme>openSUSE</bootloader-theme>
@@ -98,7 +98,7 @@
     </preferences>
 
     <preferences profiles="VMware">
-        <version>15.4</version>
+        <version>15.6.3</version>
         <packagemanager>zypper</packagemanager>
         <bootsplash-theme>openSUSE</bootsplash-theme>
         <bootloader-theme>openSUSE</bootloader-theme>
@@ -140,7 +140,7 @@
     </preferences>
 
     <preferences profiles="OpenStack-Cloud">
-        <version>15.4</version>
+        <version>15.6.3</version>
         <packagemanager>zypper</packagemanager>
         <bootsplash-theme>openSUSE</bootsplash-theme>
         <bootloader-theme>openSUSE</bootloader-theme>
@@ -168,7 +168,7 @@
     </preferences>
 
     <preferences profiles="MS-HyperV">
-        <version>15.4</version>
+        <version>15.6.3</version>
         <packagemanager>zypper</packagemanager>
         <bootsplash-theme>openSUSE</bootsplash-theme>
         <bootloader-theme>openSUSE</bootloader-theme>
@@ -210,7 +210,7 @@
     </preferences>
 
     <preferences profiles="RaspberryPi">
-        <version>15.4</version>
+        <version>15.6.3</version>
         <packagemanager>zypper</packagemanager>
         <bootsplash-theme>openSUSE</bootsplash-theme>
         <bootloader-theme>openSUSE</bootloader-theme>
@@ -258,19 +258,19 @@
         <source path='obsrepositories:/'/>
       </repository> -->
     <repository type="rpm-md" >
-		  <source path='http://download.opensuse.org/distribution/leap/15.4/repo/non-oss/'/>
+		  <source path='http://download.opensuse.org/distribution/leap/15.6/repo/non-oss/'/>
     </repository>
     <repository type="rpm-md" >
-		  <source path='http://download.opensuse.org/update/leap/15.4/non-oss'/>
+		  <source path='http://download.opensuse.org/update/leap/15.6/non-oss'/>
     </repository>
     <repository type="rpm-md" >
-		  <source path='http://download.opensuse.org/update/leap/15.4/oss'/>
+		  <source path='http://download.opensuse.org/update/leap/15.6/oss'/>
     </repository>
     <repository type="rpm-md" >
-      <source path='http://download.opensuse.org/distribution/leap/15.4/repo/oss/'/>
+      <source path='http://download.opensuse.org/distribution/leap/15.6/repo/oss/'/>
     </repository>
     <repository type="rpm-md" >
-      <source path='https://download.opensuse.org/repositories/network/15.4'/>
+      <source path='https://download.opensuse.org/repositories/network/15.6'/>
     </repository>
     <packages type="image">
         <package name="patterns-base-base"/>
@@ -311,7 +311,11 @@
         <package name="live-add-yast-repos"/>
         <package name="zypper-needs-restarting"/> <!-- Some deployment script use this (bsc#1173548) -->
         <package name="frr"/>
-        <package name="libyang-extentions"/>
+        <package name="yang-tools"/>
+        <package name="tcpdump"/>
+        <package name="traceroute"/>
+        <package name="telnet"/>
+        <package name="netcat-openbsd"/>
     </packages>
 
     <!-- Shim for secure boot everywhere except for RPi -->
@@ -383,9 +387,9 @@
         <package name="openSUSE-release"/>
     </packages>
 
-    <packages type="bootstrap" profiles="kvm,kvm-and-xen">
+    <!--<packages type="bootstrap" profiles="kvm,kvm-and-xen">
         <package name="openSUSE-release-appliance-kvm"/>
-    </packages>
+    </packages>-->
     <packages type="bootstrap" profiles="OpenStack-Cloud">
         <package name="openSUSE-release-appliance-openstack"/>
     </packages>

@@ -94,3 +94,32 @@ systemctl enable frr
 echo "frr pam - enable wheel group"
 sed -i 's/#auth       sufficient   pam_wheel.so trust use_uid/auth       sufficient   pam_wheel.so trust use_uid group=frrvty/g' /etc/pam.d/frr
 
+echo "setting up dodgy nic config setup oneshot"
+tee /etc/systemd/system/dodgy_nic_setup_hack.service << EOF
+# /etc/systemd/system/dodgy_nic_setup_hack.service
+#
+
+[Unit]
+Description=Create /etc/sysconfig/network/ifcfg-* files if they do not exist
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c "/etc/frr/dodgy_nic_setup_hack.sh"
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+tee /etc/frr/dodgy_nic_setup_hack.sh << EOF
+for d in \$(ip link show |grep -e " eth.\\+:" |awk '{print \$2}' |awk -F ':' '{print \$1}'); do
+  if [ ! -e "/etc/sysconfig/network/ifcfg-\$d" ]; then
+    cat << EOH | tee /etc/sysconfig/network/ifcfg-\$d
+BOOTPROTO='static'
+STARTMODE='auto'
+DEVICE='\$d'
+EOH
+  fi
+done
+EOF
+chmod +x /etc/frr/dodgy_nic_setup_hack.sh
+systemctl enable dodgy_nic_setup_hack

@@ -1,9 +1,9 @@
 Frr_gns3 is a smaller linux image for GNS3[0] to provide a FRR[1] router using the FRR project.
 
 It's built using Kiwi, a tool to build system images. All the needed files are included in this repo.
-It uses the OpenSuse Leap 15.2 JEOS kiwi configuration, obviously slightly modified, to keep the image small.
+It uses the OpenSuse Leap 15.6 JEOS kiwi configuration, obviously slightly modified, to keep the image small.
 
-When built it should be about 350MB. If did have it down to 250MB but in order to add the MPLS drivers, which
+When built it should be about 370MB. If did have it down to 270MB but in order to add the MPLS drivers, which
 weren't included in the jeos cut down kernel, meant I needed to install the full blown suse kernel.
 
 The image has 2 accounts set up:
@@ -22,14 +22,14 @@ NOTE: The gns3a is a hacked version of the existing FRR appliance, so real kudos
 
 Building the image
 ========================
-The repo has been laid out in 2 areas. Kiki and GNS3::
+The repo has been laid out in 2 areas. Kiwi and GNS3::
 
   frr_gns3/
   ├── gns3
-  │   └── frr-opensuse-leap-15.2.gns3a
+  │   └── frr-opensuse-leap-15.6.gns3a
   ├── kiwi
   │   ├── config.sh
-  │   ├── frr_leap15.2_jeos.kiwi
+  │   ├── frr_leap15.6_jeos.kiwi
   │   └── images.sh
   └── README
 
@@ -37,12 +37,12 @@ Building the image happens with Kiwi:
   - https://opensuse.github.io/kiwi/
   - https://doc.opensuse.org/projects/kiwi/doc/
 
-Everything you need to build this image is in the kiwi folder. The main image description is kiwi/frr_leap15.2_jeos.kiwi and this
+Everything you need to build this image is in the kiwi folder. The main image description is kiwi/frr_leap15.6_jeos.kiwi and this
 is a modified `OpenSuse Leap 15.2 JEOS kiwi file`. GNS3 is using qemu, so really we could trim out all the ZEN and VMware stuff.
 Kiwi calls a config.sh, that you can provide, after the `prepare` stage, and then can call images.sh just before it calls the `create`
 stage. So this is how we can make modifications.
 
-Because I wanted to support setting the MPLS labels on each eth device, and these devices don't exist in the image. There is a script that
+Because I wanted to support setting the MPLS labels on each eth device, and these devices don't exist in the image, there is a script that
 is run on start up that I've added to systemd, /etc/frr/mps_label_setup_sysctl.sh which is in systemd as mps_label_setup.service, this means
 that when the number of interfaces have been defined in GNS 3, they'll all get marked:
 
@@ -53,10 +53,10 @@ To build the image, it should be as simple as:
   cd kiwi
   sudo kiwi-ng --profile kvm-and-xen system build --description . --target-dir out
 
-This will place `frr-openSUSE-Leap-JeOS.x86_64-15.2.qcow2` in out/. This is the image/appliance. If you copy this into your GNS images dir you should be
+This will place `frr-openSUSE-Leap-JeOS.x86_64-15.6.qcow2` in out/. This is the image/appliance. If you copy this into your GNS images dir you should be
 ready to import the appliance:
 
-  sudo cp out/frr-openSUSE-Leap-JeOS.x86_64-15.2.qcow2 ~/GNS3/images/
+  sudo cp out/frr-openSUSE-Leap-JeOS.x86_64-15.6.qcow2 ~/GNS3/images/
 
 Installing the GNS3 image as an appliance
 ============================================
@@ -64,7 +64,7 @@ Installing the GNS3 image as an appliance
 Basically follow: https://gns3.com/news/article/installation-of-the-new-gns3a-fi
 
   1. Goto: File > Import appliance
-  2. Select the frr-opensuse-leap-15.2.gns3a from the repo.
+  2. Select the frr-opensuse-leap-15.6.gns3a from the repo.
   3. Then follow the wizard.
 
 

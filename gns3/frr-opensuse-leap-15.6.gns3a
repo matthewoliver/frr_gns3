@@ -24,9 +24,9 @@
     "images": [
         {
             "filename": "frr-openSUSE-Leap-JeOS.x86_64-kvm-and-xen-Build6.1.qcow2",
-            "version": "frr OpenSuse Jeos Leap 15.2 Build 6.1",
-            "md5sum": "2998e7477d165c2c7a24d53d0a6bfa23",
-            "filesize": 330170368,
+            "version": "frr Jeos Leap 15.6",
+            "md5sum": "429e741461749caa33717c1192501da2",
+            "filesize": 390463488,
             "download_url": "https://download.opensuse.org/repositories/home:/mattoliverau/images/",
             "direct_download_url": "https://download.opensuse.org/repositories/home:/mattoliverau/images/frr-openSUSE-Leap-JeOS.x86_64-kvm-and-xen.qcow2",
             "compression": "gzip"
@@ -34,7 +34,7 @@
     ],
     "versions": [
         {
-            "name": "frr OpenSuse Jeos Leap 15.2 Build 6.1",
+            "name": "frr Jeos Leap 15.6",
             "images": {
                 "hda_disk_image": "frr-openSUSE-Leap-JeOS.x86_64-kvm-and-xen-Build6.1.qcow2"
             }
